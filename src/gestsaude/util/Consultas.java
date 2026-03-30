@@ -2,10 +2,14 @@ package gestsaude.util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import gestsaude.recurso.Consulta;
+import poo.util.Validator;
 
 /**
  * Class utilitária que define um conjunto base de operações com listas de
@@ -21,9 +25,17 @@ public class Consultas {
 	 * @param fim data final a considerar (inclusive)
 	 * @return uma lista com as consultas que estão entre as datas definidas
 	 */
+
 	public static List<Consulta> getConsultaEntreDatas(Collection<Consulta> cs, LocalDateTime ini, LocalDateTime fim) {
-		// TODO implementar este método
-		return null;
+		List<Consulta> res = new ArrayList<>();
+
+		for (Consulta c : cs) {
+			LocalDateTime data = c.getDataHora();
+
+			if (!data.isBefore(ini) && !data.isAfter(fim))
+				res.add(c);
+		}
+		return res;
 	}
 
 	/**
@@ -34,8 +46,15 @@ public class Consultas {
 	 * @return uma lista com as consultas marcadas para dia
 	 */
 	public static List<Consulta> getConsultasDoDia(Collection<Consulta> cs, LocalDate dia) {
-		// TODO implementar este método
-		return null;
+		List<Consulta> res = new ArrayList<>();
+
+		for (Consulta c : cs) {
+			LocalDate data = c.getDataHora().toLocalDate(); //Fica só a data
+
+			if (data.equals(dia))
+				res.add(c);
+		}
+		return res;
 	}
 
 	/**
@@ -46,7 +65,12 @@ public class Consultas {
 	 * @return uma lista com as consultas após a data t
 	 */
 	public static List<Consulta> getConsultasApos(List<Consulta> cs, LocalDateTime t) {
-		// TODO implementar este método
-		return null;
+		List<Consulta> res = new ArrayList<>();
+
+		for (Consulta c : cs) {
+			if (c.getDataHora().isAfter(t))
+				res.add(c);
+		}
+		return res;
 	}
 }
