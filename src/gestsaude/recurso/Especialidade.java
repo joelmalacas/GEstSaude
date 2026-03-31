@@ -1,9 +1,12 @@
 package gestsaude.recurso;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import poo.tempo.HorarioDiario;
+import poo.util.Validator;
 
 /**
  * Representa uma Especialidade. Deve ter uma lista das consultas marcadas e uma
@@ -11,8 +14,23 @@ import poo.tempo.HorarioDiario;
  */
 public class Especialidade {
 
+	//Constante inicial do ID_ESPECIALIDADE
+	private static int proximo_id = 100;
+
 	// para simplificar, cada serviço vai ter sempre o mesmo horário
 	private HorarioDiario horario = new HorarioDiario(LocalTime.of(8, 10), LocalTime.of(19, 50));
+	private int id;
+	private String nome;
+	private List<Especialidade> especialidades = new ArrayList<>();
+	private List<Consulta> consultas; //Todas as consultas marcadas
+	private List<Senha> senhas; //Senhas a atender hoje
+
+	public Especialidade(String nome) {
+		this.id = proximo_id++;
+		this.nome = Validator.requireNonBlank(nome);
+		this.consultas = new ArrayList<>();
+		this.senhas = new ArrayList<>();
+	}
 
 	/**
 	 * Retorna qual a próxima senha em espera
@@ -20,8 +38,9 @@ public class Especialidade {
 	 * @return a próxima senha em espera
 	 */
 	public Senha getProximaSenha() {
-		// TODO implementar este método
-		return null;
+		if (senhas.isEmpty())
+			return null;
+		return senhas.get(0);
 	}
 
 	/**
@@ -29,7 +48,10 @@ public class Especialidade {
 	 * tarde e passa ao próximo utente.
 	 */
 	public void rejeitaProximaSenha() {
-		// TODO implementar este método
+		if (!senhas.isEmpty()) {
+			Senha s = senhas.remove(0); // retira do início
+			senhas.add(s);              // coloca no fim
+		}
 	}
 
 	/**
@@ -38,7 +60,8 @@ public class Especialidade {
 	 * @param s a senha cuja consulta terminou
 	 */
 	public void terminaConsulta(Senha s) {
-		// TODO implementar este método
+		senhas.remove(s);
+		consultas.remove(s.getConsulta());
 	}
 
 	/**
@@ -48,7 +71,11 @@ public class Especialidade {
 	 * @return as senhas que estão em lista de espera para serem atendidas
 	 */
 	public Collection<Senha> getEmEspera() {
-		// TODO implementar este método
-		return null;
+		return new ArrayList<>(senhas);
 	}
+
+	//GETTER's
+	public String getNome() { return nome; }
+	public List<Consulta> getConsultas() { return consultas; }
+	public int getID() { return id; }
 }

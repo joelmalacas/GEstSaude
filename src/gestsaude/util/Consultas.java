@@ -1,12 +1,10 @@
 package gestsaude.util;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import gestsaude.recurso.Consulta;
 import poo.util.Validator;
@@ -35,7 +33,7 @@ public class Consultas {
 			if (!data.isBefore(ini) && !data.isAfter(fim))
 				res.add(c);
 		}
-		return res;
+		return Collections.unmodifiableList(res);
 	}
 
 	/**
@@ -54,7 +52,7 @@ public class Consultas {
 			if (data.equals(dia))
 				res.add(c);
 		}
-		return res;
+		return Collections.unmodifiableList(res);
 	}
 
 	/**
@@ -68,9 +66,50 @@ public class Consultas {
 		List<Consulta> res = new ArrayList<>();
 
 		for (Consulta c : cs) {
-			if (c.getDataHora().isAfter(t))
+			if (!c.getDataHora().isBefore(t)) //Igual ou depois a "t"
 				res.add(c);
 		}
-		return res;
+		return Collections.unmodifiableList(res);
+	}
+
+	/*
+	* Método que verifica intervalo de 10 minutos na mesma especialidade
+	*/
+	public static boolean Verifica10Especialidade(Collection<Consulta> cs, Consulta nova) {
+		for (Consulta c : cs) {
+			if (c == nova) continue;
+			if (!c.getEspecialidade().equals(nova.getEspecialidade())) continue;
+			long minutos = Math.abs(Duration.between(c.getDataHora(), nova.getDataHora()).toMinutes());
+
+			if (minutos < 10)
+				return true;
+		}
+
+		return false;
+	}
+
+	/*
+	 * Método que verifica que o utente não pode ter mais
+	 *    que 1 consulta em menos de 3 horas
+	 */
+	public static boolean Verifica3HorasUtente(Collection<Consulta> cs, Consulta nova) {
+		for (Consulta c : cs) {
+			//Verifica se as duas referências apontam para o mesmo objeto
+			if (c == nova) continue;
+
+			//Mesmo Utente
+			if (!c.getUtente().equals(nova.getUtente())) continue;
+
+			//Verifica se é o mesmo dia
+			if (!c.getDataHora().toLocalDate().equals(nova.getDataHora().toLocalDate())) continue;
+
+			//Calcular o intervalo de tempo (horas) entre as duas datas
+			long horas = Math.abs(Duration.between(c.getDataHora(), nova.getDataHora()).toHours());
+
+			if (horas < 3)
+				return true;
+		}
+
+		return false;
 	}
 }

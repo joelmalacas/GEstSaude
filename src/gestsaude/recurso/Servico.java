@@ -1,12 +1,29 @@
 package gestsaude.recurso;
 
+import poo.util.Validator;
+
 import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Representa um serviço. Deve ter o id, uma descrição, a sala. Deve ter uma
  * lista das senhas que ainda terão de ser atendidas.
  */
 public class Servico {
+
+    private static int proximo_id = 500;
+
+    private int id;
+    private String descricao;
+    private Queue<Senha> fila;
+
+    public Servico(String descricao) {
+        this.id = Validator.requirePositive(proximo_id++);
+        this.descricao = Validator.requireNonBlank(descricao);
+        this.fila = new LinkedList<>();
+    }
 
     /**
      * Retorna a próxima senha a ser atendida por este serviço
@@ -15,15 +32,17 @@ public class Servico {
      *         mais senhas
      */
     public Senha getProximaSenha() {
-        // TODO implementar este método
-        return null;
+        return fila.peek();
     }
 
     /**
      * o utente não responde à chamada? A sua senha passa para o fim da lista.
      */
     public void saltaProximaSenha() {
-        // TODO implementar este método
+        if (!fila.isEmpty()) {
+            Senha s = fila.poll();
+            fila.add(s);
+        }
     }
 
     /**
@@ -32,7 +51,8 @@ public class Servico {
      * @param s a senha que terminou o serviço
      */
     public void terminaConsulta(Senha s) {
-        // TODO implementar este método
+        if (fila.remove(s))
+            s.terminaAtendimento();
     }
 
     /**
@@ -42,7 +62,11 @@ public class Servico {
      * @return as senhas que estão em lista de espera para serem atendidas
      */
     public Collection<Senha> getEmEspera() {
-        // TODO implementar este método
-        return null;
+        return Collections.unmodifiableCollection(fila);
+    }
+
+    /*Método para adicionar senha*/
+    public void adicionaSenha(Senha s) {
+        fila.add(s);
     }
 }

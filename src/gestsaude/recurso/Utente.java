@@ -2,6 +2,8 @@ package gestsaude.recurso;
 
 import poo.util.Validator;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,6 +18,7 @@ public class Utente {
     public Utente(String nome, int sns) {
         this.nome = Validator.requireNonBlank(nome);
         this.sns = Validator.requirePositive(sns);
+        this.consultas = new ArrayList<>();
     }
 
     public void addConsulta(Consulta c) {
@@ -29,5 +32,5 @@ public class Utente {
     //GETTER's
     public String getNome() { return nome; }
     public int getSns() { return sns; }
-    public List<Consulta> getConsultas() { return consultas; }
+    public List<Consulta> getConsultas() { return Collections.unmodifiableList(consultas); }
 }
