@@ -30,10 +30,10 @@ public class Arranque {
 	 * @return um GEstSaude já completamente configurado
 	 */
 	public static GEstSaude getGEstSaude() {
+		GEstSaude g = new GEstSaude();
+
 		// colocar o relógio simulado nas 8:00
 		RelogioSimulado.getRelogioSimulado().setTempoAtual(LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0)));
-
-		GEstSaude g = new GEstSaude();
 
 		// TODO criar os utentes
 		Utente u1 = new Utente("Joel", 12345);
@@ -53,7 +53,6 @@ public class Arranque {
 		Servico s1 = new Servico("Radiologia");
 		Servico s2 = new Servico("Enfermagem");
 
-		//(assumindo que tens método)
 		g.adicionaServico(s1);
 		g.adicionaServico(s2);
 
@@ -82,7 +81,7 @@ public class Arranque {
 		System.out.println("Validar Consulta: " + resultado); // imprime o número
 
 		// =====================
-		// Consulta INVÁLIDA: atraso (válido < 2h) || TESTE PASSADO
+		// Consulta INVÁLIDA: TESTE PASSADO
 		// =====================
 		// Consulta às 8:10, entrada às 10:11 = 2h01 de atraso → INVÁLIDO
 		//g.emiteSenha(consulta, LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 11)), LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 11)));
