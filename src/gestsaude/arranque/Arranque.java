@@ -77,8 +77,12 @@ public class Arranque {
 		// =====================
 		g.emiteSenha(consulta, LocalDateTime.of(LocalDate.now(), LocalTime.of(10,0)), LocalDateTime.of(LocalDate.now(), LocalTime.of(10,0))); // 1h atraso
 
+		//Verificar estado da consulta com metodo validarConsulta
+		int resultado = g.validarConsulta(consulta);
+		System.out.println("Validar Consulta: " + resultado); // imprime o número
+
 		// =====================
-		// TESTE INVÁLIDO: atraso (válido < 2h) || TESTE PASSADO
+		// Consulta INVÁLIDA: atraso (válido < 2h) || TESTE PASSADO
 		// =====================
 		// Consulta às 8:10, entrada às 10:11 = 2h01 de atraso → INVÁLIDO
 		//g.emiteSenha(consulta, LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 11)), LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 11)));

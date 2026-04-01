@@ -2,6 +2,7 @@ package gestsaude.recurso;
 
 import poo.util.RelogioSimulado;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -187,7 +188,27 @@ public class GEstSaude {
 	 *         consulta na mesma data
 	 */
 	public int podeAceitarConsulta(Consulta c) {
-		// TODO implementar este método
+		LocalDateTime agora = RelogioSimulado.getRelogioSimulado().getTempoAtual();
+
+		//Verificar se a data da consulta já passou
+		if (c.getDataHora().isBefore(agora))
+			return DATA_JA_PASSOU;
+
+		for (Consulta cs : consultas) {
+			if (cs.getUtente().equals(c.getUtente())) {
+				long DiffMinutos = Math.abs(Duration.between(cs.getDataHora(), c.getDataHora()).toMinutes());
+				if (DiffMinutos < 10)
+					return UTENTE_JA_TEM_CONSULTA;
+			}
+
+			//Verificar se a especialidade já tem consulta com menos de 10 minutos de diff
+			if (cs.getEspecialidade().equals(c.getEspecialidade())){
+				long DiffMinutos = Math.abs(Duration.between(cs.getDataHora(), c.getDataHora()).toMinutes());
+				if (DiffMinutos < 10)
+					return ESPECIALISTA_JA_TEM_CONSULTA;
+			}
+		}
+
 		return CONSULTA_ACEITE;
 	}
 
@@ -206,7 +227,35 @@ public class GEstSaude {
 	 *         consulta
 	 */
 	public int podeAlterarConsulta(Consulta antiga, Consulta nova) {
-		// TODO implementar este método
+		LocalDateTime agora = RelogioSimulado.getRelogioSimulado().getTempoAtual();
+
+		//Verificar se mudou o utente ou a especialidade
+		if (!antiga.getUtente().equals(nova.getUtente()) || !antiga.getEspecialidade().equals(nova.getEspecialidade()))
+			return ALTERACAO_INVALIDA;
+
+		//Verificar se a nova data já passou
+		if (nova.getDataHora().isBefore(agora))
+			return DATA_JA_PASSOU;
+
+		for (Consulta existente : consultas) {
+			//Ignorar consulta antiga
+			if (existente == antiga) continue;
+
+			//Verificar se o utente já tem consulta com menos de 3h diff
+			if (existente.getUtente().equals(nova.getUtente())) {
+				long diff = Math.abs(Duration.between(existente.getDataHora(), nova.getDataHora()).toMinutes());
+				if (diff < 180)
+					return UTENTE_JA_TEM_CONSULTA;
+			}
+
+			//Verificar se a especialidade já tem consulta com menos de 10 minutos de diff
+			if (existente.getEspecialidade().equals(nova.getEspecialidade())){
+				long diff = Math.abs(Duration.between(existente.getDataHora(), nova.getDataHora()).toMinutes());
+				if (diff < 10)
+					return ESPECIALISTA_JA_TEM_CONSULTA;
+			}
+		}
+
 		return CONSULTA_ACEITE;
 	}
 
@@ -226,7 +275,13 @@ public class GEstSaude {
 	 *         consulta
 	 */
 	public int alteraConsulta(Consulta antiga, Consulta nova) {
-		// TODO implementar este método
+		int res = podeAlterarConsulta(antiga, nova);
+		if (res != CONSULTA_ACEITE) return res;
+
+		//Substitui a antiga pela nova
+		int index = consultas.indexOf(antiga);
+		consultas.set(index, nova);
+
 		return CONSULTA_ACEITE;
 	}
 }
