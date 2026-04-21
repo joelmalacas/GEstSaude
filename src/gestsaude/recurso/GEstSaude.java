@@ -5,9 +5,7 @@ import poo.util.RelogioSimulado;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Representa o sistema. Deve armazenar todas as consulta, utentes,
@@ -67,10 +65,16 @@ public class GEstSaude {
 	// --- consultas ---
 	public void adicionaConsulta(Consulta c) {
 		consultas.add(c);
+		c.getUtente().addConsulta(c);
+		c.getEspecialidade().getConsultas().add(c);
 	}
 
 	public List<Consulta> getConsultas() {
 		return Collections.unmodifiableList(consultas);
+	}
+
+	public Collection<Senha> getSenhas() {
+		return Collections.unmodifiableCollection(senhas);
 	}
 
 	// --- senhas ---
@@ -83,7 +87,9 @@ public class GEstSaude {
 
 	public Senha criaSenha(LocalDateTime entrada, LocalDateTime atendimento, Consulta consulta) {
 		String numero = geraNumeroSenha();
-		return new Senha(this, numero, entrada, atendimento, consulta);
+		Senha s = new Senha(this, numero, entrada, atendimento, consulta);
+		senhas.add(s);
+		return s;
 	}
 
 	/**
@@ -93,6 +99,9 @@ public class GEstSaude {
 	 * @return a primeira consulta do dia do utente
 	 */
 	public Consulta primeiraConsultaDia(Utente u) {
+		if (u.getConsultas().isEmpty()) {
+			return null;
+		}
 		return u.getConsultas().getFirst();
 	}
 
@@ -283,5 +292,24 @@ public class GEstSaude {
 		consultas.set(index, nova);
 
 		return CONSULTA_ACEITE;
+	}
+
+	public Utente getUtentePorSns(int sns) {
+		for (Utente u : utentes) {
+			if (Objects.equals(u.getSns(), sns)) {
+				return u;
+			}
+		}
+		return null;
+	}
+
+	public Especialidade getEspecialidadePorId(String id) {
+		for (Especialidade esp : especialidades) {
+			if (Objects.equals(esp.getID(), id)) {
+				return esp;
+			}
+		}
+
+		return null;
 	}
 }

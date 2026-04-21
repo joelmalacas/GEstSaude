@@ -35,15 +35,15 @@ public class MaquinaEntrada extends javax.swing.JDialog {
 	/** chamado quando se pressiona o botão "Validar Consulta" */
 	private void validarConsulta() {
 		String numSns = JOptionPane.showInputDialog(this, "Qual o seu número de SNS?");
-		// TODO verificar qual o utente, se existir, associado ao número introduzido
-		Utente u = null;
+		// TODO FEITO verificar qual o utente, se existir, associado ao número introduzido
+		Utente u = gest.getUtentePorSns(Integer.parseInt(numSns));
 		if (u == null) {
 			JOptionPane.showMessageDialog(this, "Número inválido");
 			return;
 		}
 
-		// TODO saber o nome do utente e ver qual a 1ª consulta do dia para este utente
-		String nomeUtente = "nome utente";
+		// TODO FEITO saber o nome do utente e ver qual a 1ª consulta do dia para este utente
+		String nomeUtente = u.getNome();
 		Consulta c = gest.primeiraConsultaDia(u);
 		if (c == null) {
 			JOptionPane.showMessageDialog(this, nomeUtente + ", não tem consultas hoje!");
@@ -72,8 +72,8 @@ public class MaquinaEntrada extends javax.swing.JDialog {
 			return;
 		}
 
-		// TODO substituir texto pelo número da senha
-		JOptionPane.showMessageDialog(this, nomeUtente + ", a sua senha é " + "NÚMERO SENHA");
+		// TODO FEITO substituir texto pelo número da senha
+		JOptionPane.showMessageDialog(this, nomeUtente + ", a sua senha é " + c.getSenha().getNumero());
 	}
 
 	// métodos relacionados com a interface gráfica. Não deve ser necessário alterar
