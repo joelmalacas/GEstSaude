@@ -15,18 +15,16 @@ import poo.util.Validator;
 public class Especialidade {
 
 	//Constante inicial do ID_ESPECIALIDADE
-	private static int proximo_id = 100;
 
 	// para simplificar, cada serviço vai ter sempre o mesmo horário
 	private HorarioDiario horario = new HorarioDiario(LocalTime.of(8, 10), LocalTime.of(19, 50));
-	private int id;
-	private String nome;
+	private String id,nome;
 	private List<Especialidade> especialidades = new ArrayList<>();
 	private List<Consulta> consultas; //Todas as consultas marcadas
 	private List<Senha> senhas; //Senhas a atender hoje
 
-	public Especialidade(String nome) {
-		this.id = proximo_id++;
+	public Especialidade(String id,String nome) {
+		this.id = Validator.requireNonBlankTrimmed(id);
 		this.nome = Validator.requireNonBlank(nome);
 		this.consultas = new ArrayList<>();
 		this.senhas = new ArrayList<>();
@@ -34,7 +32,7 @@ public class Especialidade {
 
 	/**
 	 * Retorna qual a próxima senha em espera
-	 * 
+	 *
 	 * @return a próxima senha em espera
 	 */
 	public Senha getProximaSenha() {
@@ -56,7 +54,7 @@ public class Especialidade {
 
 	/**
 	 * Terminou a consulta da senha
-	 * 
+	 *
 	 * @param s a senha cuja consulta terminou
 	 */
 	public void terminaConsulta(Senha s) {
@@ -67,7 +65,7 @@ public class Especialidade {
 	/**
 	 * Retorna as senhas que estão em lista de espera para serem atendidas nesta
 	 * especialidade
-	 * 
+	 *
 	 * @return as senhas que estão em lista de espera para serem atendidas
 	 */
 	public Collection<Senha> getEmEspera() {
@@ -77,5 +75,5 @@ public class Especialidade {
 	//GETTER's
 	public String getNome() { return nome; }
 	public List<Consulta> getConsultas() { return consultas; }
-	public int getID() { return id; }
+	public String getID() { return id; }
 }

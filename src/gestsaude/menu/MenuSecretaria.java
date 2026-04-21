@@ -67,7 +67,7 @@ public class MenuSecretaria extends JFrame {
 	/** lista todas as consultas */
 	private void listarTodas() {
 		// TODO: colocar a lista de todas as consultas
-		listarConsultas(java.util.List.of());
+		listarConsultas(gest.getConsultas());
 		listagem = LISTAR_TODAS;
 	}
 
@@ -75,7 +75,7 @@ public class MenuSecretaria extends JFrame {
 	private void listarHoje() {
 		LocalDateTime agora = RelogioSimulado.getRelogioSimulado().tempoAtual();
 		// TODO listar as consulta do dia de hoje
-		listarConsultas(java.util.List.of());
+		listarConsultas(gest.getConsultas());
 		listagem = LISTAR_HOJE;
 	}
 
@@ -83,9 +83,11 @@ public class MenuSecretaria extends JFrame {
 	private void listarPorUtente() {
 		// TODO completar este método
 		String numSns = JOptionPane.showInputDialog(this, "Número de SNS do utente?");
-		Utente u = null;
+		if (numSns == null || numSns.isBlank())
+			return;
+		Utente u = gest.getUtentePorSns(Integer.parseInt(numSns));
 		if (u != null)
-			listarConsultas(java.util.List.of());
+			listarConsultas(u.getConsultas());
 		else {
 			JOptionPane.showMessageDialog(this, "Utente inválido");
 		}
@@ -96,9 +98,11 @@ public class MenuSecretaria extends JFrame {
 	private void listarPorEspecialidade() {
 		// TODO completar este método
 		String numServico = JOptionPane.showInputDialog(this, "Id da especialidade?");
-		Especialidade esp = null;
+		if (numServico == null || numServico.isBlank())
+			return;
+		Especialidade esp = gest.getEspecialidadePorId(numServico);
 		if (esp != null)
-			listarConsultas(java.util.List.of());
+			listarConsultas(esp.getConsultas());
 		else {
 			JOptionPane.showMessageDialog(this, "Especialidade inválida!");
 		}
@@ -142,11 +146,11 @@ public class MenuSecretaria extends JFrame {
 	/** Lista todas as senhas na tabela */
 	private void listarSenhas() {
 		// TODO completar este método
-		Collection<Senha> senhas = java.util.List.of();
+		Collection<Senha> senhas = gest.getSenhas();
 		Vector<String> infoSenhas = new Vector<>();
 		for (Senha s : senhas) {
 			// TODO por a info nas variáveis
-			String numeroSenha = "A123";
+			String numeroSenha = s.getNumero();
 			// se estiver para ser atendido num serviço usar a descrição do serviço, senão
 			// usar a descrição da expecialidade
 			String descricao = s.servicoAtual() == null ? "Especialidade" : "Serviço";
@@ -160,16 +164,16 @@ public class MenuSecretaria extends JFrame {
 
 	/** Lista todas as consultas numa lista */
 	private void listarConsultas(java.util.Collection<Consulta> consultas) {
-		consultasListadas = new ArrayList<>(consultas);
+		consultasListadas = new ArrayList<Consulta>(consultas);
 		consultasModel.setRowCount(0);
 		for (Consulta c : consultas) {
-			// TODO colocar a informação nas variáveis
-			String snsUtente = "321";
-			String nomeUtente = "Utente Exemplar";
-			String idEspecialidade = "Esp1.";
-			String descricaoEspecialidade = "Especialidade";
-			String dataString = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-			String horaString = LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss"));
+			// TODO FEITO colocar a informação nas variáveis
+			String snsUtente = String.valueOf(c.getUtente().getSns());
+			String nomeUtente = c.getUtente().getNome();
+			String idEspecialidade = String.valueOf(c.getEspecialidade().getID());
+			String descricaoEspecialidade = c.getEspecialidade().getNome();
+			String dataString = c.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			String horaString = c.getDataHora().format(DateTimeFormatter.ofPattern("hh:mm:ss"));
 
 			addLinhaTabela(snsUtente + " - " + nomeUtente, idEspecialidade + " - " + descricaoEspecialidade, dataString,
 					horaString);

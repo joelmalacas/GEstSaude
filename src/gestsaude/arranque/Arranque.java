@@ -43,8 +43,9 @@ public class Arranque {
 		g.adicionaUtente(u2);
 
 		// TODO criar as especialidades
-		Especialidade oncologia = new Especialidade("Oncologia");
-		Especialidade cardio = new Especialidade("Cardiologia");
+		Especialidade oncologia = new Especialidade("Oto1","Otorrino - Dr Narize");
+		Especialidade oftalmologia = new Especialidade("Ofta1","Oftalmologia - Dra Íris Tapada");
+		Especialidade cardio = new Especialidade("Card1","Cardiologia - Dr Paul Sassão");
 
 		g.adicionaEspecialidade(oncologia);
 		g.adicionaEspecialidade(cardio);
@@ -69,16 +70,16 @@ public class Arranque {
 		// =====================
 
 		//g.emiteSenha(consulta, LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 5)), LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 10)));
-		g.emiteSenha(consulta1, LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 25)), LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 35)));
+		//g.emiteSenha(consulta1, LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 25)), LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 35)));
 
 		// =====================
 		// TESTE: atraso (válido < 2h)
 		// =====================
-		g.emiteSenha(consulta, LocalDateTime.of(LocalDate.now(), LocalTime.of(10,0)), LocalDateTime.of(LocalDate.now(), LocalTime.of(10,0))); // 1h atraso
+		//g.emiteSenha(consulta, LocalDateTime.of(LocalDate.now(), LocalTime.of(10,0)), LocalDateTime.of(LocalDate.now(), LocalTime.of(10,0))); // 1h atraso
 
 		//Verificar estado da consulta com metodo validarConsulta
-		int resultado = g.validarConsulta(consulta);
-		System.out.println("Validar Consulta: " + resultado); // imprime o número
+		//int resultado = g.validarConsulta(consulta);
+		//System.out.println("Validar Consulta: " + resultado); // imprime o número
 
 		// =====================
 		// Consulta INVÁLIDA: TESTE PASSADO
@@ -98,7 +99,6 @@ public class Arranque {
 			System.out.printf("| %-14s | %-20s |%n", "Especialidade", c.getEspecialidade().getNome());
 			System.out.printf("| %-14s | %-20s |%n", "Validada", c.estaValidada());
 			System.out.printf("| %-14s | %-20s |%n", "Data Hora", c.getDataHora());
-			System.out.printf("| %-14s | %-20s |%n", "Senha", c.getSenha());
 			System.out.println("+----------------+----------------------+");
 		}
 
