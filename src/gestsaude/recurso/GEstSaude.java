@@ -294,6 +294,12 @@ public class GEstSaude {
 		return CONSULTA_ACEITE;
 	}
 
+	public void apagarConsulta(Consulta c) {
+		consultas.remove(c);
+
+		c.getUtente().removeConsulta(c);
+	}
+
 	public Utente getUtentePorSns(int sns) {
 		for (Utente u : utentes) {
 			if (Objects.equals(u.getSns(), sns)) {

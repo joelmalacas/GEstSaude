@@ -13,14 +13,12 @@ import java.util.Queue;
  */
 public class Servico {
 
-    private static int proximo_id = 500;
-
-    private int id;
+    private String id;
     private String descricao;
     private Queue<Senha> fila;
 
-    public Servico(String descricao) {
-        this.id = Validator.requirePositive(proximo_id++);
+    public Servico(String id, String descricao) {
+        this.id = Validator.requireNonBlank(id);
         this.descricao = Validator.requireNonBlank(descricao);
         this.fila = new LinkedList<>();
     }

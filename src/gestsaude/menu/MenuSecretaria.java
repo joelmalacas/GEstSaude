@@ -11,6 +11,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -74,8 +75,13 @@ public class MenuSecretaria extends JFrame {
 	/** lista apenas as consultas de hoje */
 	private void listarHoje() {
 		LocalDateTime agora = RelogioSimulado.getRelogioSimulado().tempoAtual();
-		// TODO listar as consulta do dia de hoje
-		listarConsultas(gest.getConsultas());
+		// TODO FEITO listar as consulta do dia de hoje
+		List <Consulta> consultasHoje = new ArrayList<>();
+		for (Consulta c : gest.getConsultas()) {
+			if (c.getDataHora().toLocalDate().equals(agora.toLocalDate()))
+				consultasHoje.add(c);
+		}
+		listarConsultas(consultasHoje);
 		listagem = LISTAR_HOJE;
 	}
 
@@ -129,6 +135,7 @@ public class MenuSecretaria extends JFrame {
 			return;
 
 		// TODO remover a consulta do sistema
+		gest.apagarConsulta(c);
 	}
 
 	/** Processa o carregar no botão de editar consulta */

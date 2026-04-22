@@ -35,35 +35,86 @@ public class Arranque {
 		// colocar o relógio simulado nas 8:00
 		RelogioSimulado.getRelogioSimulado().setTempoAtual(LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0)));
 
-		// TODO criar os utentes
-		Utente u1 = new Utente("Joel", 12345);
-		Utente u2 = new Utente("Ana", 67890);
+		// TODO FEITO criar os utentes
+		Utente u1 = new Utente("Raquel Marques Soares", 121);
+		Utente u2 = new Utente("Daniel Mendes Rodrigues", 122);
+		Utente u3 = new Utente("Zeferino Dias Torres", 123);
+		Utente u4 = new Utente("Anabela Dias Santos", 124);
+		Utente u5 = new Utente("Felizberto Desgraçado", 125);
+		Utente u6 = new Utente("Antonina Martins Pires", 126);
+		Utente u7 = new Utente("Camaleão das Neves Freitas", 127);
+		Utente u8 = new Utente("João Pais Pereira", 128);
+		Utente u9 = new Utente("Carlos Freitas Lobo", 129);
+		Utente u10 = new Utente("Daniel Mendes Rodrigues", 130);
+		Utente u11 = new Utente("Dália Ribeiro Sanches", 120);
 
 		g.adicionaUtente(u1);
 		g.adicionaUtente(u2);
+		g.adicionaUtente(u3);
+		g.adicionaUtente(u4);
+		g.adicionaUtente(u5);
+		g.adicionaUtente(u6);
+		g.adicionaUtente(u7);
+		g.adicionaUtente(u8);
+		g.adicionaUtente(u9);
+		g.adicionaUtente(u10);
+		g.adicionaUtente(u11);
 
-		// TODO criar as especialidades
-		Especialidade oncologia = new Especialidade("Oto1","Otorrino - Dr Narize");
+		// TODO FEITO criar as especialidades
+		Especialidade otorrino = new Especialidade("Oto1","Otorrino - Dr Narize");
 		Especialidade oftalmologia = new Especialidade("Ofta1","Oftalmologia - Dra Íris Tapada");
-		Especialidade cardio = new Especialidade("Card1","Cardiologia - Dr Paul Sassão");
+		Especialidade pediatria2 = new Especialidade("Ped2","Pediatria - Dr B. B. Zinho");
+		Especialidade pediatria = new Especialidade("Ped1","Pediatria - Dra P. Quena");
+		Especialidade dermatologia = new Especialidade("Derm1","Dermatologia - Dra V. Ruga");
+		Especialidade pneumologia = new Especialidade("Pneu1","Pneumologia - Dr Paul Mão");
+		Especialidade ortopedia2 = new Especialidade("Orto2","Ortopedia - Dr Entorse");
+		Especialidade cardiologia = new Especialidade("Card1","Cardiologia - Dr Paul Sassão");
+		Especialidade ortopedia = new Especialidade("Orto1","Ortopedia - Dr Ossos");
+		Especialidade otorrino2 = new Especialidade("Oto2","Otorrino - Dra Odete Otite");
 
-		g.adicionaEspecialidade(oncologia);
-		g.adicionaEspecialidade(cardio);
+		g.adicionaEspecialidade(otorrino);
+		g.adicionaEspecialidade(oftalmologia);
+		g.adicionaEspecialidade(pediatria2);
+		g.adicionaEspecialidade(pediatria);
+		g.adicionaEspecialidade(dermatologia);
+		g.adicionaEspecialidade(pneumologia);
+		g.adicionaEspecialidade(ortopedia2);
+		g.adicionaEspecialidade(cardiologia);
+		g.adicionaEspecialidade(ortopedia);
+		g.adicionaEspecialidade(otorrino2);
 
-		// TODO criar os serviços
-		Servico s1 = new Servico("Radiologia");
-		Servico s2 = new Servico("Enfermagem");
+		// TODO FEITO criar os serviços
+		Servico s1 = new Servico("Scopia", "Lab. Endos");
+		Servico s2 = new Servico("NeuLab", "Lab. Neurologia");
+		Servico s3 = new Servico("Rad", "Sala RX");
+		Servico s4 = new Servico("Audio", "Lab. Som");
+		Servico s5 = new Servico("Enf", "Enfermaria");
 
 		g.adicionaServico(s1);
 		g.adicionaServico(s2);
+		g.adicionaServico(s3);
+		g.adicionaServico(s4);
+		g.adicionaServico(s5);
 
 
 		//TODO criar as consultas
-		Consulta consulta = new Consulta(LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 10)), u1, oncologia);
-		Consulta consulta1 = new Consulta(LocalDateTime.of(LocalDate.now(), LocalTime.of(12,50)), u2, cardio);
+		Consulta c1 = new Consulta(LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 10)), u2, ortopedia);
+		Consulta c2 = new Consulta(LocalDateTime.of(LocalDate.now(), LocalTime.of(8,10)), u11, pediatria);
+		Consulta c3 = new Consulta(LocalDateTime.of(LocalDate.now(), LocalTime.of(8,10)), u1, pediatria2);
+		Consulta c4 = new Consulta(LocalDateTime.of(LocalDate.now(), LocalTime.of(8,20)), u5, dermatologia);
+		Consulta c5 = new Consulta(LocalDateTime.of(LocalDate.now(), LocalTime.of(8,30)), u6, pediatria);
+		Consulta c6 = new Consulta(LocalDateTime.of(LocalDate.now(), LocalTime.of(8,40)), u7, pediatria);
+		Consulta c7 = new Consulta(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(8,10)), u7, pediatria);
+		Consulta c8 = new Consulta(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(8,20)), u3, pediatria);
 
-		g.adicionaConsulta(consulta);
-		g.adicionaConsulta(consulta1);
+		g.adicionaConsulta(c1);
+		g.adicionaConsulta(c2);
+		g.adicionaConsulta(c3);
+		g.adicionaConsulta(c4);
+		g.adicionaConsulta(c5);
+		g.adicionaConsulta(c6);
+		g.adicionaConsulta(c7);
+		g.adicionaConsulta(c8);
 
 		// =====================
 		// EMISSÃO DE SENHAS (válidas) | TESTES PASSADOS

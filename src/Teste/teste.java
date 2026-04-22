@@ -29,11 +29,11 @@ public class teste {
         g.adicionaEspecialidade(cardio);
 
         // TODO criar os serviços
-        Servico s1 = new Servico("Radiologia");
-        Servico s2 = new Servico("Enfermagem");
+        //Servico s1 = new Servico("Radiologia");
+        //Servico s2 = new Servico("Enfermagem");
 
-        g.adicionaServico(s1);
-        g.adicionaServico(s2);
+        //g.adicionaServico(s1);
+        //g.adicionaServico(s2);
 
 
         //TODO criar as consultas
