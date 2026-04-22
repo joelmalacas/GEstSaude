@@ -67,4 +67,6 @@ public class Servico {
     public void adicionaSenha(Senha s) {
         fila.add(s);
     }
+
+    public String getDescricao() {return this.descricao;}
 }

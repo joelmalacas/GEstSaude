@@ -97,7 +97,7 @@ public class Arranque {
 		g.adicionaServico(s5);
 
 
-		//TODO criar as consultas
+		//TODO FEITO criar as consultas
 		Consulta c1 = new Consulta(LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 10)), u2, ortopedia);
 		Consulta c2 = new Consulta(LocalDateTime.of(LocalDate.now(), LocalTime.of(8,10)), u11, pediatria);
 		Consulta c3 = new Consulta(LocalDateTime.of(LocalDate.now(), LocalTime.of(8,10)), u1, pediatria2);

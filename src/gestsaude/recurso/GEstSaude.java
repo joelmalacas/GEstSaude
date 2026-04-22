@@ -42,8 +42,8 @@ public class GEstSaude {
 		utentes.add(u);
 	}
 
-	public List<Utente> getUtentes() {
-		return utentes;
+	public Collection<Utente> getUtentes() {
+		return Collections.unmodifiableCollection(utentes);
 	}
 
 	// --- especialidades ---
@@ -56,6 +56,14 @@ public class GEstSaude {
 	// --- serviços ---
 	public void adicionaServico(Servico s) {
 		servicos.add(s);
+	}
+
+	public Servico getServicoPorNome(String nome) {
+		for (Servico s : servicos) {
+			if (s.getDescricao().equals(nome))
+				return s;
+		}
+		return null;
 	}
 
 	public List<Servico> getServicos() {

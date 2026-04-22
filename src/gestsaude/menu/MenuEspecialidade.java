@@ -24,10 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import gestsaude.recurso.GEstSaude;
-import gestsaude.recurso.Senha;
-import gestsaude.recurso.Servico;
-import gestsaude.recurso.Especialidade;
+import gestsaude.recurso.*;
 
 /**
  * Janela da aplicação instalada em cada especialidade
@@ -78,8 +75,8 @@ public class MenuEspecialidade extends JDialog {
 			return false;
 
 		// TODO colocar a info nas variáveis
-		String numero = "A1";
-		String nomeUtente = "Um utente qualquer";
+		String numero = senha.getNumero();
+		String nomeUtente = senha.getConsulta().getUtente().getNome();
 
 		senhaLbl.setText(numero);
 		utenteLbl.setText(nomeUtente);
@@ -108,11 +105,14 @@ public class MenuEspecialidade extends JDialog {
 			if (res == null || res.isEmpty())
 				break;
 			// TODO ver se o serviço existe
-			Servico s = null;
+			Servico s = gest.getServicoPorNome(res);
 			if (s == null)
 				JOptionPane.showMessageDialog(this, "Esse serviço não existe!");
 			else {
 				// TODO associar o serviço à senha e a senha aos serviços
+				senha.adicionaServico(s);
+				s.adicionaSenha(senha);
+				serv.add(res);
 			}
 		} while (true);
 		finalizarConsulta();
@@ -124,8 +124,8 @@ public class MenuEspecialidade extends JDialog {
 		Collection<Senha> senhas = especial.getEmEspera();
 		for (Senha s : senhas) {
 			// TODO colocar a info certa nas variáveis
-			String numeroSenha = "A101";
-			String nomeUtente = "Alberto Berto";
+			String numeroSenha = s.getNumero();
+			String nomeUtente = s.getConsulta().getUtente().getNome();
 			LocalTime hora = LocalTime.now();
 
 			infoSenhas.add(numeroSenha + ": " + nomeUtente + " " + PADRAO_HH_MM.format(hora));
@@ -138,7 +138,7 @@ public class MenuEspecialidade extends JDialog {
 	/** Atualiza a janela, indicando quantos utentes estão em fila de espera */
 	public void atualizarInfo() {
 		// TODO colocar a info certa
-		String idEspecialidade = "Ped1.";
+		String idEspecialidade = especial.getID();
 		int nUtentes = especial.getEmEspera().size();
 
 		setTitle(idEspecialidade + " utentes: " + nUtentes);
