@@ -116,43 +116,6 @@ public class Arranque {
 		g.adicionaConsulta(c7);
 		g.adicionaConsulta(c8);
 
-		// =====================
-		// EMISSÃO DE SENHAS (válidas) | TESTES PASSADOS
-		// =====================
-
-		//g.emiteSenha(consulta, LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 5)), LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 10)));
-		//g.emiteSenha(consulta1, LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 25)), LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 35)));
-
-		// =====================
-		// TESTE: atraso (válido < 2h)
-		// =====================
-		//g.emiteSenha(consulta, LocalDateTime.of(LocalDate.now(), LocalTime.of(10,0)), LocalDateTime.of(LocalDate.now(), LocalTime.of(10,0))); // 1h atraso
-
-		//Verificar estado da consulta com metodo validarConsulta
-		//int resultado = g.validarConsulta(consulta);
-		//System.out.println("Validar Consulta: " + resultado); // imprime o número
-
-		// =====================
-		// Consulta INVÁLIDA: TESTE PASSADO
-		// =====================
-		// Consulta às 8:10, entrada às 10:11 = 2h01 de atraso → INVÁLIDO
-		//g.emiteSenha(consulta, LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 11)), LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 11)));
-
-		for (int i = 0; i < g.getConsultas().size(); i++) {
-			Consulta c = g.getConsultas().get(i);
-
-			System.out.println("+----------------+----------------------+");
-			System.out.println("| Campo          | Valor                |");
-			System.out.println("+----------------+----------------------+");
-			System.out.printf("| %-14s | %-20s |%n", "Nome Utente", c.getUtente().getNome());
-			System.out.printf("| %-14s | %-20s |%n", "SNS Utente", c.getUtente().getSns());
-			System.out.printf("| %-14s | %-20s |%n", "ID Esp", c.getEspecialidade().getID());
-			System.out.printf("| %-14s | %-20s |%n", "Especialidade", c.getEspecialidade().getNome());
-			System.out.printf("| %-14s | %-20s |%n", "Validada", c.estaValidada());
-			System.out.printf("| %-14s | %-20s |%n", "Data Hora", c.getDataHora());
-			System.out.println("+----------------+----------------------+");
-		}
-
 		return g;
 	}
 
