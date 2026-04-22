@@ -67,7 +67,7 @@ public class MenuSecretaria extends JFrame {
 
 	/** lista todas as consultas */
 	private void listarTodas() {
-		// TODO: colocar a lista de todas as consultas
+		// TODO FEITO colocar a lista de todas as consultas
 		listarConsultas(gest.getConsultas());
 		listagem = LISTAR_TODAS;
 	}
@@ -87,7 +87,7 @@ public class MenuSecretaria extends JFrame {
 
 	/** lista todas as consultas de um utente */
 	private void listarPorUtente() {
-		// TODO completar este método
+		// TODO FEITO completar este método
 		String numSns = JOptionPane.showInputDialog(this, "Número de SNS do utente?");
 		if (numSns == null || numSns.isBlank())
 			return;
@@ -102,7 +102,7 @@ public class MenuSecretaria extends JFrame {
 
 	/** lista todas as consultas de um serviço */
 	private void listarPorEspecialidade() {
-		// TODO completar este método
+		// TODO FEITO completar este método
 		String numServico = JOptionPane.showInputDialog(this, "Id da especialidade?");
 		if (numServico == null || numServico.isBlank())
 			return;
@@ -121,7 +121,8 @@ public class MenuSecretaria extends JFrame {
 		ec.setVisible(true);
 		Consulta c = ec.getConsulta();
 		if (c != null) {
-			// TODO adicionar a consulta ao sistema
+			// TODO FEITO adicionar a consulta ao sistema
+			gest.adicionaConsulta(c);
 
 			listarTodas();
 		}
@@ -144,7 +145,7 @@ public class MenuSecretaria extends JFrame {
 		ec.setVisible(true);
 		Consulta nova = ec.getConsulta();
 		if (nova != null) {
-			// TODO alterar a consulta no sistema
+			// TODO FEITO alterar a consulta no sistema
 			gest.alteraConsulta(c, nova);
 			listarTodas();
 		}
@@ -152,11 +153,11 @@ public class MenuSecretaria extends JFrame {
 
 	/** Lista todas as senhas na tabela */
 	private void listarSenhas() {
-		// TODO completar este método
+		// TODO FEITO completar este método
 		Collection<Senha> senhas = gest.getSenhas();
 		Vector<String> infoSenhas = new Vector<>();
 		for (Senha s : senhas) {
-			// TODO por a info nas variáveis
+			// TODO FEITO por a info nas variáveis
 			String numeroSenha = s.getNumero();
 			// se estiver para ser atendido num serviço usar a descrição do serviço, senão
 			// usar a descrição da expecialidade

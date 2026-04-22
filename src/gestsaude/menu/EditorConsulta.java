@@ -80,12 +80,12 @@ public class EditorConsulta extends JDialog {
 		this.consulta = consulta;
 		this.gest = g;
 
-		// TODO usar uma lista com os ids das especialidades
+		// TODO FEITO usar uma lista com os ids das especialidades
 		setupAspeto(g.getEspecialidades());
 
 		// se for uma consulta existente é preciso carregar os dados desta
 		if (consulta != null) {
-			// TODO colocar os dados certos nas variáveis
+			// TODO FEITO colocar os dados certos nas variáveis
 			String snsUtente = String.valueOf(consulta.getUtente().getSns());
 			String idEspecialidade = consulta.getEspecialidade().getID();
 			data = consulta.getDataHora().toLocalDate();
@@ -117,13 +117,13 @@ public class EditorConsulta extends JDialog {
 	 * Deve dar indicações de erro.
 	 */
 	protected void testaIdUtente() {
-		// TODO ver se o utente existe
+		// TODO FEITO ver se o utente existe
 		utente = gest.getUtentePorSns(Integer.parseInt(snsUtenteTF.getText().trim())); //perguntar ao stor
 		if (utente == null) {
 			apresentarMensagem("Id do utente é inválido!", false);
 			nomeUtente.setText("");
 		} else {
-			// TODO substituir texto pelo nome do utente
+			// TODO FEITO substituir texto pelo nome do utente
 			nomeUtente.setText(utente.getNome());
 			testaTudoOk();
 		}
@@ -134,7 +134,7 @@ public class EditorConsulta extends JDialog {
 	 * Deve dar indicações de erro.
 	 */
 	protected void testaIdServico() {
-		// TODO ver se o id da especialidade escolhida é válido
+		// TODO FEITO ver se o id da especialidade escolhida é válido
 		String idEscolhido = (String) idEspecialidadeCB.getSelectedItem();
 
 		Especialidade esp = gest.getEspecialidadePorId(idEscolhido);
@@ -143,7 +143,7 @@ public class EditorConsulta extends JDialog {
 			nomeServico.setText("");
 		} else {
 			especialidade = esp;
-			// TODO substituir texto pela descrição da especialidade
+			// TODO FEITO substituir texto pela descrição da especialidade
 			nomeServico.setText(especialidade.getNome());
 			testaTudoOk();
 		}
@@ -162,8 +162,9 @@ public class EditorConsulta extends JDialog {
 		else if (data == null)
 			apresentarMensagem("Falta definir a data!", false);
 		else {
-			// TODO criar a consulta e verificar se pode ser adicionada/alterada
-			Consulta c = new Consulta(LocalDateTime.of(data, hora), utente, especialidade);
+			// TODO FEITO criar a consulta e verificar se pode ser adicionada/alterada
+			LocalTime horaAtual = (hora != null) ? hora : getHora();
+			Consulta c = new Consulta(LocalDateTime.of(data, horaAtual), utente, especialidade);
 			// ver se é criação ou uma alteração
 			int res = consulta == null ? gest.podeAceitarConsulta(c) : gest.podeAlterarConsulta(consulta, c);
 			switch (res) {
@@ -193,8 +194,8 @@ public class EditorConsulta extends JDialog {
 	protected void okPremido() {
 		LocalDateTime quando = LocalDateTime.of(data, getHora());
 
-		// TODO criar a consulta com os valores escolhidos
-		consultaRes = null;
+		// TODO FEITO criar a consulta com os valores escolhidos
+		consultaRes = new Consulta(quando,utente,especialidade);
 		setVisible(false);
 	}
 

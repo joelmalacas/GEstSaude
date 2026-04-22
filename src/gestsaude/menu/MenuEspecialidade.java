@@ -74,7 +74,7 @@ public class MenuEspecialidade extends JDialog {
 		if (senha == null)
 			return false;
 
-		// TODO colocar a info nas variáveis
+		// TODO FEITO colocar a info nas variáveis
 		String numero = senha.getNumero();
 		String nomeUtente = senha.getConsulta().getUtente().getNome();
 
@@ -109,7 +109,7 @@ public class MenuEspecialidade extends JDialog {
 			if (s == null)
 				JOptionPane.showMessageDialog(this, "Esse serviço não existe!");
 			else {
-				// TODO associar o serviço à senha e a senha aos serviços
+				// TODO FEITO associar o serviço à senha e a senha aos serviços
 				senha.adicionaServico(s);
 				s.adicionaSenha(senha);
 				serv.add(res);
@@ -123,7 +123,7 @@ public class MenuEspecialidade extends JDialog {
 		Vector<String> infoSenhas = new Vector<>();
 		Collection<Senha> senhas = especial.getEmEspera();
 		for (Senha s : senhas) {
-			// TODO colocar a info certa nas variáveis
+			// TODO FEITO colocar a info certa nas variáveis
 			String numeroSenha = s.getNumero();
 			String nomeUtente = s.getConsulta().getUtente().getNome();
 			LocalTime hora = LocalTime.now();
@@ -137,7 +137,7 @@ public class MenuEspecialidade extends JDialog {
 
 	/** Atualiza a janela, indicando quantos utentes estão em fila de espera */
 	public void atualizarInfo() {
-		// TODO colocar a info certa
+		// TODO FEITO colocar a info certa
 		String idEspecialidade = especial.getID();
 		int nUtentes = especial.getEmEspera().size();
 
