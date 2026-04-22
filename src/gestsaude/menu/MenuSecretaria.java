@@ -134,7 +134,7 @@ public class MenuSecretaria extends JFrame {
 		if (opcao == JOptionPane.NO_OPTION)
 			return;
 
-		// TODO remover a consulta do sistema
+		// TODO FEITO remover a consulta do sistema
 		gest.apagarConsulta(c);
 	}
 
@@ -160,7 +160,7 @@ public class MenuSecretaria extends JFrame {
 			String numeroSenha = s.getNumero();
 			// se estiver para ser atendido num serviço usar a descrição do serviço, senão
 			// usar a descrição da expecialidade
-			String descricao = s.servicoAtual() == null ? "Especialidade" : "Serviço";
+			String descricao = s.servicoAtual() == null ? s.getConsulta().getEspecialidade().getNome() : s.getConsulta().getServico().getDescricao();
 
 			infoSenhas.add(numeroSenha + ": " + descricao);
 		}
@@ -177,7 +177,7 @@ public class MenuSecretaria extends JFrame {
 			// TODO FEITO colocar a informação nas variáveis
 			String snsUtente = String.valueOf(c.getUtente().getSns());
 			String nomeUtente = c.getUtente().getNome();
-			String idEspecialidade = String.valueOf(c.getEspecialidade().getID());
+			String idEspecialidade = c.getEspecialidade().getID();
 			String descricaoEspecialidade = c.getEspecialidade().getNome();
 			String dataString = c.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 			String horaString = c.getDataHora().format(DateTimeFormatter.ofPattern("hh:mm:ss"));

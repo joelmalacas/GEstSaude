@@ -51,7 +51,12 @@ public class GEstSaude {
 		especialidades.add(e);
 	}
 
-	public List<Especialidade> getEspecialidades() {return Collections.unmodifiableList(especialidades);}
+	public List<String> getEspecialidades() {
+		List<String> ids = new ArrayList<>();
+		for (Especialidade e : especialidades)
+			ids.add(e.getID());
+		return Collections.unmodifiableList(ids);
+	}
 
 	// --- serviços ---
 	public void adicionaServico(Servico s) {

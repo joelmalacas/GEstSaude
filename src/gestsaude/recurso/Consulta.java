@@ -20,6 +20,7 @@ public class Consulta {
 	private Utente utente;
 	private Especialidade especialidade;
 	private Senha senha;
+	private Servico servico;
 
 	public Consulta(LocalDateTime dataHora, Utente utente, Especialidade especialidade) {
 		verificaHorasConsulta(Objects.requireNonNull(dataHora));
@@ -57,5 +58,6 @@ public class Consulta {
 	public LocalDateTime getDataHora() { return dataHora; }
 	public Utente getUtente() { return utente; }
 	public Especialidade getEspecialidade() { return especialidade; }
+	public Servico getServico() { return servico; }
 	public Senha getSenha() {return senha;}
 }

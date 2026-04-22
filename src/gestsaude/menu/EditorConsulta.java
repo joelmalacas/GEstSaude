@@ -81,15 +81,15 @@ public class EditorConsulta extends JDialog {
 		this.gest = g;
 
 		// TODO usar uma lista com os ids das especialidades
-		setupAspeto(java.util.List.of("Ped1."));
+		setupAspeto(g.getEspecialidades());
 
 		// se for uma consulta existente é preciso carregar os dados desta
 		if (consulta != null) {
 			// TODO colocar os dados certos nas variáveis
-			String snsUtente = "123";
-			String idEspecialidade = "Especial de corrida";
-			data = LocalDate.now();
-			hora = LocalTime.now();
+			String snsUtente = String.valueOf(consulta.getUtente().getSns());
+			String idEspecialidade = consulta.getEspecialidade().getID();
+			data = consulta.getDataHora().toLocalDate();
+			hora = consulta.getDataHora().toLocalTime();
 
 			snsUtenteTF.setText(snsUtente);
 			testaIdUtente();
@@ -118,13 +118,13 @@ public class EditorConsulta extends JDialog {
 	 */
 	protected void testaIdUtente() {
 		// TODO ver se o utente existe
-		utente = null;
+		utente = gest.getUtentePorSns(Integer.parseInt(snsUtenteTF.getText().trim())); //perguntar ao stor
 		if (utente == null) {
 			apresentarMensagem("Id do utente é inválido!", false);
 			nomeUtente.setText("");
 		} else {
 			// TODO substituir texto pelo nome do utente
-			nomeUtente.setText("NOME DO UTENTE");
+			nomeUtente.setText(utente.getNome());
 			testaTudoOk();
 		}
 	}
@@ -137,14 +137,14 @@ public class EditorConsulta extends JDialog {
 		// TODO ver se o id da especialidade escolhida é válido
 		String idEscolhido = (String) idEspecialidadeCB.getSelectedItem();
 
-		Especialidade esp = null;
+		Especialidade esp = gest.getEspecialidadePorId(idEscolhido);
 		if (esp == null) {
 			apresentarMensagem("Especialidade não reconhecida!", false);
 			nomeServico.setText("");
 		} else {
 			especialidade = esp;
 			// TODO substituir texto pela descrição da especialidade
-			nomeServico.setText("ESPECIALIDADE");
+			nomeServico.setText(especialidade.getNome());
 			testaTudoOk();
 		}
 	}
@@ -163,7 +163,7 @@ public class EditorConsulta extends JDialog {
 			apresentarMensagem("Falta definir a data!", false);
 		else {
 			// TODO criar a consulta e verificar se pode ser adicionada/alterada
-			Consulta c = null;
+			Consulta c = new Consulta(LocalDateTime.of(data, hora), utente, especialidade);
 			// ver se é criação ou uma alteração
 			int res = consulta == null ? gest.podeAceitarConsulta(c) : gest.podeAlterarConsulta(consulta, c);
 			switch (res) {
