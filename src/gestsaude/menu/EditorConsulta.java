@@ -118,7 +118,7 @@ public class EditorConsulta extends JDialog {
 	 */
 	protected void testaIdUtente() {
 		// TODO FEITO ver se o utente existe
-		utente = gest.getUtentePorSns(Integer.parseInt(snsUtenteTF.getText().trim())); //perguntar ao stor
+		utente = gest.getUtentePorSns(Integer.parseInt(snsUtenteTF.getText().trim()));
 		if (utente == null) {
 			apresentarMensagem("Id do utente é inválido!", false);
 			nomeUtente.setText("");

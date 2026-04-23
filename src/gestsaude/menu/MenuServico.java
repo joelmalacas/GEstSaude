@@ -65,12 +65,12 @@ public class MenuServico extends JDialog {
 	 * @return true se tem utente em espera
 	 */
 	private boolean temUtenteEspera() {
-		// TODO ver qual a próxima senha
+		// TODO FEITO ver qual a próxima senha
 		senha = servico.getProximaSenha();
 		if (senha == null)
 			return false;
 
-		// TODO colocar a info nas variáveis
+		// TODO FEITO colocar a info nas variáveis
 		String numero = senha.getNumero();
 		String nomeUtente = senha.getConsulta().getUtente().getNome();
 
@@ -81,7 +81,7 @@ public class MenuServico extends JDialog {
 
 	/** método chamado para rejeitar o utente */
 	private void saltarUtente() {
-		// TODO implementar o método
+		// TODO FEITO implementar o método
 		servico.saltaProximaSenha();
 	}
 
@@ -95,7 +95,7 @@ public class MenuServico extends JDialog {
 		Collection<Senha> senhas = servico.getEmEspera();
 		Vector<String> infoSenhas = new Vector<>();
 		for (Senha s : senhas) {
-			// TODO colocar a informação nas variáveis
+			// TODO FEITO colocar a informação nas variáveis
 			String numeroSenha = s.getNumero();
 			String nomeUtente = s.getConsulta().getUtente().getNome();
 
@@ -108,7 +108,7 @@ public class MenuServico extends JDialog {
 
 	/** Atualiza título, indicando quantos utentes estão em fila de espera */
 	public void atualizarInfo() {
-		// TODO colocar a informação nas variáveis
+		// TODO FEITO colocar a informação nas variáveis
 		String idServico = servico.getID();
 		int nUtentes = servico.getEmEspera().size();
 

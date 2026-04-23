@@ -69,7 +69,7 @@ public class GEstSaude {
 
 	public Servico getServicoPorNome(String nome) {
 		for (Servico s : servicos) {
-			if (s.getDescricao().equals(nome))
+			if (s.getID().equals(nome))
 				return s;
 		}
 		return null;
@@ -200,6 +200,8 @@ public class GEstSaude {
 	public void terminaConsulta(Consulta c) {
 		consultas.remove(c);
 		senhas.remove(c.getSenha());
+		c.getUtente().removeConsulta(c);
+		c.getEspecialidade().terminaConsulta(c.getSenha());
 	}
 
 	/**
@@ -314,8 +316,8 @@ public class GEstSaude {
 
 	public void apagarConsulta(Consulta c) {
 		consultas.remove(c);
-
 		c.getUtente().removeConsulta(c);
+		c.getEspecialidade().getConsultas().remove(c);
 	}
 
 	public Utente getUtentePorSns(int sns) {

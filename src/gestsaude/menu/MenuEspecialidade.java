@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import gestsaude.recurso.*;
+import poo.util.RelogioSimulado;
 
 /**
  * Janela da aplicação instalada em cada especialidade
@@ -91,6 +92,7 @@ public class MenuEspecialidade extends JDialog {
 	/** chamado quando se pressiona o botão para finalizar a consulta */
 	private void finalizarConsulta() {
 		especial.terminaConsulta(senha);
+		gest.terminaConsulta(senha.getConsulta());
 	}
 
 	/**
@@ -104,7 +106,7 @@ public class MenuEspecialidade extends JDialog {
 			String res = JOptionPane.showInputDialog(this, lista, "Encaminhar para onde?", JOptionPane.PLAIN_MESSAGE);
 			if (res == null || res.isEmpty())
 				break;
-			// TODO ver se o serviço existe
+			// TODO FEITO ver se o serviço existe
 			Servico s = gest.getServicoPorNome(res);
 			if (s == null)
 				JOptionPane.showMessageDialog(this, "Esse serviço não existe!");
@@ -126,7 +128,7 @@ public class MenuEspecialidade extends JDialog {
 			// TODO FEITO colocar a info certa nas variáveis
 			String numeroSenha = s.getNumero();
 			String nomeUtente = s.getConsulta().getUtente().getNome();
-			LocalTime hora = LocalTime.now();
+			LocalTime hora = RelogioSimulado.getTempoAtual().toLocalTime();
 
 			infoSenhas.add(numeroSenha + ": " + nomeUtente + " " + PADRAO_HH_MM.format(hora));
 		}
