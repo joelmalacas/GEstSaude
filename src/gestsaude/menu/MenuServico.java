@@ -71,8 +71,8 @@ public class MenuServico extends JDialog {
 			return false;
 
 		// TODO colocar a info nas variáveis
-		String numero = "A12";
-		String nomeUtente = "Joana Ana";
+		String numero = senha.getNumero();
+		String nomeUtente = senha.getConsulta().getUtente().getNome();
 
 		senhaLbl.setText(numero);
 		utenteLbl.setText(nomeUtente);
@@ -82,7 +82,7 @@ public class MenuServico extends JDialog {
 	/** método chamado para rejeitar o utente */
 	private void saltarUtente() {
 		// TODO implementar o método
-
+		servico.saltaProximaSenha();
 	}
 
 	/** método chamado para terminar o serviço */
@@ -96,8 +96,8 @@ public class MenuServico extends JDialog {
 		Vector<String> infoSenhas = new Vector<>();
 		for (Senha s : senhas) {
 			// TODO colocar a informação nas variáveis
-			String numeroSenha = "A11";
-			String nomeUtente = "Vitor Virtual";
+			String numeroSenha = s.getNumero();
+			String nomeUtente = s.getConsulta().getUtente().getNome();
 
 			infoSenhas.add(numeroSenha + ": " + nomeUtente);
 		}
@@ -109,7 +109,7 @@ public class MenuServico extends JDialog {
 	/** Atualiza título, indicando quantos utentes estão em fila de espera */
 	public void atualizarInfo() {
 		// TODO colocar a informação nas variáveis
-		String idServico = "Rad.";
+		String idServico = servico.getID();
 		int nUtentes = servico.getEmEspera().size();
 
 		setTitle(idServico + " utentes: " + nUtentes);

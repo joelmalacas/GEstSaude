@@ -143,7 +143,7 @@ public class Arranque {
 		me1.setVisible(true);
 
 		// criar todos os menus de serviço e de especialidades
-		// TODO ver as especialidades e os serviços do sistema
+		// TODO FEITO ver as especialidades e os serviços do sistema
 		Collection<Especialidade> especiais = gs.getEspecialidades();
 		Collection<Servico> servicos = gs.getServicos();
 		int idx = 0;

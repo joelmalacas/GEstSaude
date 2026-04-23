@@ -69,4 +69,5 @@ public class Servico {
     }
 
     public String getDescricao() {return this.descricao;}
+    public String getID() {return this.id;}
 }
