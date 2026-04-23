@@ -163,7 +163,8 @@ public class GEstSaude {
 			if (agora.toLocalTime().isAfter(LocalTime.of(20, 0)))
 				return UTENTE_ATRASADO_FORAHORAS;
 			// Emite a senha
-			criaSenha(agora, agora, c);
+			c.setDataHora(agora.plusMinutes(45));
+			criaSenha(agora, agora.plusMinutes(45), c);
 			return UTENTE_ATRASADO_ADIADO;
 		}
 

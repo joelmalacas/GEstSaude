@@ -1,5 +1,6 @@
 package gestsaude.recurso;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,8 +23,10 @@ public class Especialidade {
 	private List<Especialidade> especialidades = new ArrayList<>();
 	private List<Consulta> consultas; //Todas as consultas marcadas
 	private List<Senha> senhas; //Senhas a atender hoje
+	private GEstSaude gest;
 
 	public Especialidade(String id,String nome) {
+		this.gest = gest;
 		this.id = Validator.requireNonBlankTrimmed(id);
 		this.nome = Validator.requireNonBlank(nome);
 		this.consultas = new ArrayList<>();
@@ -46,9 +49,20 @@ public class Especialidade {
 	 * tarde e passa ao próximo utente.
 	 */
 	public void rejeitaProximaSenha() {
+
 		if (!senhas.isEmpty()) {
-			Senha s = senhas.remove(0); // retira do início
-			senhas.add(s);              // coloca no fim
+			Senha s = senhas.remove(0);
+			LocalDateTime NovaDataHora = s.getConsulta().getDataHora().plusMinutes(15);
+
+			LocalTime novaHora = NovaDataHora.toLocalTime();
+
+			if (novaHora.isAfter(LocalTime.of(19, 50))) {
+				consultas.remove(s.getConsulta());
+				gest.apagarConsulta(s.getConsulta());
+			} else {
+				s.getConsulta().setDataHora(NovaDataHora);
+				senhas.add(s);
+			}
 		}
 	}
 

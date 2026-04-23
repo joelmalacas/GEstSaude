@@ -50,8 +50,17 @@ public class Consulta {
 
 	private void verificaHorasConsulta(LocalDateTime dataHora) {
 		//Método para verificar a hora de marcação da consulta (8:10 ou depois) || (19:50 ou antes)
-		if (dataHora.toLocalTime().isBefore(LocalTime.of(8, 10)) || dataHora.toLocalTime().isAfter(LocalTime.of(19, 50)))
+		LocalTime hora = dataHora.toLocalTime();
+		LocalTime inicio = LocalTime.of(8, 10);
+		LocalTime fim = LocalTime.of(19, 50);
+
+		if (hora.isBefore(inicio) || hora.isAfter(fim))
 			throw new IllegalArgumentException("A consulta deve ser marcada entre as 8:10 e as 19:50");
+	}
+
+	public void reagendarDataHora(LocalDateTime dataHora) {
+		verificaHorasConsulta(Objects.requireNonNull(dataHora));
+		this.dataHora = dataHora;
 	}
 
 	//GETTER's
