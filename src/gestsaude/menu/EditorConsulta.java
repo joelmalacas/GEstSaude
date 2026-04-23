@@ -81,7 +81,7 @@ public class EditorConsulta extends JDialog {
 		this.gest = g;
 
 		// TODO FEITO usar uma lista com os ids das especialidades
-		setupAspeto(g.getEspecialidades());
+		setupAspeto(g.getIdsEspecialidades());
 
 		// se for uma consulta existente é preciso carregar os dados desta
 		if (consulta != null) {

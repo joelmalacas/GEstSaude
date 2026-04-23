@@ -144,8 +144,8 @@ public class Arranque {
 
 		// criar todos os menus de serviço e de especialidades
 		// TODO ver as especialidades e os serviços do sistema
-		Collection<Especialidade> especiais = List.of();
-		Collection<Servico> servicos = List.of();
+		Collection<Especialidade> especiais = gs.getEspecialidades();
+		Collection<Servico> servicos = gs.getServicos();
 		int idx = 0;
 		int totalJanelas = 0;
 		MenuEspecialidade menusEsp[] = new MenuEspecialidade[especiais.size()];
