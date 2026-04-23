@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import gestsaude.recurso.GEstSaude;
 import gestsaude.recurso.Senha;
 import gestsaude.recurso.Servico;
 
@@ -38,6 +39,7 @@ public class MenuServico extends JDialog {
 
 	private Servico servico;
 	private Senha senha;
+	private GEstSaude gest;
 
 	// elementos gráficos usados na interface
 	private static final long serialVersionUID = 1L;
@@ -88,6 +90,7 @@ public class MenuServico extends JDialog {
 	/** método chamado para terminar o serviço */
 	private void terminarServico() {
 		servico.terminaConsulta(senha);
+		gest.terminaConsulta(senha.getConsulta());
 	}
 
 	/** Lista as senhas em espera neste serviço */

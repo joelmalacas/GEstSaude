@@ -92,7 +92,6 @@ public class MenuEspecialidade extends JDialog {
 	/** chamado quando se pressiona o botão para finalizar a consulta */
 	private void finalizarConsulta() {
 		especial.terminaConsulta(senha);
-		gest.terminaConsulta(senha.getConsulta());
 	}
 
 	/**
@@ -112,9 +111,11 @@ public class MenuEspecialidade extends JDialog {
 				JOptionPane.showMessageDialog(this, "Esse serviço não existe!");
 			else {
 				// TODO FEITO associar o serviço à senha e a senha aos serviços
-				senha.adicionaServico(s);
-				s.adicionaSenha(senha);
-				serv.add(res);
+				if (!serv.contains(res)) {
+					serv.add(res);
+					senha.adicionaServico(s);
+					s.adicionaSenha(senha);
+				}
 			}
 		} while (true);
 		finalizarConsulta();
