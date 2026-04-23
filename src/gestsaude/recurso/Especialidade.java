@@ -75,5 +75,6 @@ public class Especialidade {
 	//GETTER's
 	public String getNome() { return nome; }
 	public List<Consulta> getConsultas() { return consultas; }
+	public List<Senha> getSenhas() { return senhas; }
 	public String getID() { return id; }
 }

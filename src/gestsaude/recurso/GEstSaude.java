@@ -106,6 +106,7 @@ public class GEstSaude {
 		String numero = geraNumeroSenha();
 		Senha s = new Senha(this, numero, entrada, atendimento, consulta);
 		senhas.add(s);
+		consulta.getEspecialidade().getSenhas().add(s);
 		return s;
 	}
 
