@@ -121,7 +121,7 @@ public class GEstSaude {
 
 	/**
 	 * Deve retornar qual a primeira consulta do dia de um utente
-	 * 
+	 *
 	 * @param u o utente de quem ver a primeira consulta do dia
 	 * @return a primeira consulta do dia do utente
 	 */
@@ -135,7 +135,7 @@ public class GEstSaude {
 	/**
 	 * Valida a consulta. Verifica se a consulta pode ser concretizada e, se sim,
 	 * emite a senha respetiva.
-	 * 
+	 *
 	 * @param c a consulta a verificar
 	 * @return o resultado deve ser um dos seguintes:
 	 *         <li>
@@ -185,7 +185,7 @@ public class GEstSaude {
 	/**
 	 * Emite a senha para a consulta. Se a consulta já está validada, retorna a
 	 * senha previamente emitida.
-	 * 
+	 *
 	 * @param c           a consulta a qual a senha ficará associada
 	 * @param entrada     a data de entrada no sistema
 	 * @param atendimento a data prevista de atendimento (pode ser diferente da data
@@ -196,15 +196,13 @@ public class GEstSaude {
 		//Se a consulta está validada retorna a senha
 		if (c.estaValidada())
 			return c.getSenha();
-
-		//Cria e retorna a senha
 		return criaSenha(entrada, atendimento, c);
 	}
 
 	/**
 	 * Indicação ao sistema de que a consulta terminou. Deve eliminar a consulta e a
 	 * senha respetiva
-	 * 
+	 *
 	 * @param c a consulta terminada
 	 */
 	public void terminaConsulta(Consulta c) {
@@ -216,7 +214,7 @@ public class GEstSaude {
 
 	/**
 	 * Verica se a consulta pode ser adicionada ao sistema
-	 * 
+	 *
 	 * @param c a consulta a testar
 	 * @return o resultado deve ser um dos seguintes:
 	 *         <li>CONSULTA_ACEITE se a consulta puder ser adicionada ao sistema
@@ -229,18 +227,16 @@ public class GEstSaude {
 	public int podeAceitarConsulta(Consulta c) {
 		LocalDateTime agora = RelogioSimulado.getRelogioSimulado().getTempoAtual();
 
-		//Verificar se a data da consulta já passou
 		if (c.getDataHora().isBefore(agora))
 			return DATA_JA_PASSOU;
 
 		for (Consulta cs : consultas) {
 			if (cs.getUtente().equals(c.getUtente())) {
 				long DiffMinutos = Math.abs(Duration.between(cs.getDataHora(), c.getDataHora()).toMinutes());
-				if (DiffMinutos < 10)
+				if (DiffMinutos < 180)
 					return UTENTE_JA_TEM_CONSULTA;
 			}
 
-			//Verificar se a especialidade já tem consulta com menos de 10 minutos de diff
 			if (cs.getEspecialidade().equals(c.getEspecialidade())){
 				long DiffMinutos = Math.abs(Duration.between(cs.getDataHora(), c.getDataHora()).toMinutes());
 				if (DiffMinutos < 10)
@@ -253,7 +249,7 @@ public class GEstSaude {
 
 	/**
 	 * Verica se a consulta pode ser alterada
-	 * 
+	 *
 	 * @param c a consulta com as alterações
 	 * @return o resultado deve ser um dos seguintes:
 	 *         <li>CONSULTA_ACEITE se a consulta puder ser adicionada ao sistema
@@ -300,7 +296,7 @@ public class GEstSaude {
 
 	/**
 	 * altera uma consulta por outra
-	 * 
+	 *
 	 * @param antiga a consulta que será alterada
 	 * @param nova   a consulta já com as alterações
 	 * @return o resultado deve ser um dos seguintes:

@@ -26,7 +26,7 @@ public class Especialidade {
 	private GEstSaude gest;
 
 	public Especialidade(String id,String nome) {
-		this.gest = gest;
+		this.gest = GEstSaude.getInstance();
 		this.id = Validator.requireNonBlankTrimmed(id);
 		this.nome = Validator.requireNonBlank(nome);
 		this.consultas = new ArrayList<>();
