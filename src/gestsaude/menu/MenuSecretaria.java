@@ -122,7 +122,8 @@ public class MenuSecretaria extends JFrame {
 		Consulta c = ec.getConsulta();
 		if (c != null) {
 			// TODO FEITO adicionar a consulta ao sistema
-			gest.adicionaConsulta(c);
+			if (gest.validarConsulta(c) == gest.UTENTE_SEM_CONSULTA_PROXIMA)
+				gest.adicionaConsulta(c);
 
 			listarTodas();
 		}

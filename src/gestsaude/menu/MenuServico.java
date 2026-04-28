@@ -90,7 +90,7 @@ public class MenuServico extends JDialog {
 	/** método chamado para terminar o serviço */
 	private void terminarServico() {
 		servico.terminaConsulta(senha);
-		gest.terminaConsulta(senha.getConsulta());
+		servico.getGest().terminaConsulta(senha.getConsulta());
 	}
 
 	/** Lista as senhas em espera neste serviço */

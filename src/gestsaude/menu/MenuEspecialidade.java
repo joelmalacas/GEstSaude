@@ -114,7 +114,8 @@ public class MenuEspecialidade extends JDialog {
 				if (!serv.contains(res)) {
 					serv.add(res);
 					senha.adicionaServico(s);
-					s.adicionaSenha(senha);
+					if (serv.size() == 1)
+						s.adicionaSenha(senha);
 				}
 			}
 		} while (true);

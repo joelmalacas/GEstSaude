@@ -16,8 +16,10 @@ public class Servico {
     private String id;
     private String descricao;
     private Queue<Senha> fila;
+    private GEstSaude gest;
 
     public Servico(String id, String descricao) {
+        this.gest = GEstSaude.getInstance();
         this.id = Validator.requireNonBlank(id);
         this.descricao = Validator.requireNonBlank(descricao);
         this.fila = new LinkedList<>();
@@ -25,7 +27,7 @@ public class Servico {
 
     /**
      * Retorna a próxima senha a ser atendida por este serviço
-     * 
+     *
      * @return a próxima senha a ser atendida por este serviço, null se não tiver
      *         mais senhas
      */
@@ -45,7 +47,7 @@ public class Servico {
 
     /**
      * a senha termina a consulta neste serviço
-     * 
+     *
      * @param s a senha que terminou o serviço
      */
     public void terminaConsulta(Senha s) {
@@ -56,7 +58,7 @@ public class Servico {
     /**
      * Retorna as senhas que estão em lista de espera para serem atendidas neste
      * serviço
-     * 
+     *
      * @return as senhas que estão em lista de espera para serem atendidas
      */
     public Collection<Senha> getEmEspera() {
@@ -68,6 +70,7 @@ public class Servico {
         fila.add(s);
     }
 
+    public GEstSaude getGest() {return this.gest;}
     public String getDescricao() {return this.descricao;}
     public String getID() {return this.id;}
 }

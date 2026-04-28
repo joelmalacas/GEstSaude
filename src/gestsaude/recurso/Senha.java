@@ -105,8 +105,11 @@ public class Senha {
 		index++;
 
 		//Se já não tem mais serviços, avisa o sistema que a consulta terminou
-		if (servicoAtual() == null)
+		Servico proximo = servicoAtual();
+		if (proximo == null)
 			gest.terminaConsulta(consulta);
+		else
+			proximo.adicionaSenha(this);
 	}
 
 	/*

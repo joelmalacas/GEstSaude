@@ -59,11 +59,13 @@ public class MaquinaEntrada extends javax.swing.JDialog {
 		if (resultado == GEstSaude.UTENTE_DEMASIADO_ATRASADO) {
 			JOptionPane.showMessageDialog(this,
 					nomeUtente + ", atraso na consulta superior ao permitido, a consulta foi anulada!");
+			gest.apagarConsulta(c);
 			return;
 		}
 		if (resultado == GEstSaude.UTENTE_ATRASADO_FORAHORAS) {
 			JOptionPane.showMessageDialog(this,
 					nomeUtente + ", o seu atraso levou a que a consulta fosse anulada!");
+			gest.apagarConsulta(c);
 			return;
 		}
 		if (resultado == GEstSaude.UTENTE_ATRASADO_ADIADO) {

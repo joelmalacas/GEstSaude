@@ -35,7 +35,16 @@ public class GEstSaude {
 	private List<Consulta> consultas = new ArrayList<>();
 	private List<Senha> senhas = new ArrayList<>();
 
+	private static GEstSaude instance;
+
 	public GEstSaude() {}
+
+	public static GEstSaude getInstance() {
+		if (instance == null) {
+			instance = new GEstSaude();
+		}
+		return instance;
+	}
 
 	// --- utentes ---
 	public void adicionaUtente(Utente u) {
