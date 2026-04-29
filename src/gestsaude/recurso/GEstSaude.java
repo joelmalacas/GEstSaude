@@ -28,7 +28,7 @@ public class GEstSaude {
 	public static final int ESPECIALISTA_JA_TEM_CONSULTA = UTENTE_JA_TEM_CONSULTA + 1;
 	public static final int ALTERACAO_INVALIDA = ESPECIALISTA_JA_TEM_CONSULTA + 1;
 
-	// listas
+
 	private List<Utente> utentes = new ArrayList<>();
 	private List<Especialidade> especialidades = new ArrayList<>();
 	private List<Servico> servicos = new ArrayList<>();
@@ -46,7 +46,7 @@ public class GEstSaude {
 		return instance;
 	}
 
-	// --- utentes ---
+
 	public void adicionaUtente(Utente u) {
 		utentes.add(u);
 	}
@@ -55,7 +55,7 @@ public class GEstSaude {
 		return Collections.unmodifiableCollection(utentes);
 	}
 
-	// --- especialidades ---
+
 	public void adicionaEspecialidade(Especialidade e) {
 		especialidades.add(e);
 	}
@@ -71,7 +71,7 @@ public class GEstSaude {
 		return Collections.unmodifiableList(ids);
 	}
 
-	// --- serviços ---
+
 	public void adicionaServico(Servico s) {
 		servicos.add(s);
 	}
@@ -88,7 +88,7 @@ public class GEstSaude {
 		return Collections.unmodifiableList(servicos);
 	}
 
-	// --- consultas ---
+
 	public void adicionaConsulta(Consulta c) {
 		consultas.add(c);
 		c.getUtente().addConsulta(c);
@@ -103,12 +103,12 @@ public class GEstSaude {
 		return Collections.unmodifiableCollection(senhas);
 	}
 
-	// --- senhas ---
+
 	private int contadorSenhas = 0;
 
 	private String geraNumeroSenha() {
 		contadorSenhas++;
-		return "A" + contadorSenhas; // gera A1, A2, A3...
+		return "A" + contadorSenhas;
 	}
 
 	public Senha criaSenha(LocalDateTime entrada, LocalDateTime atendimento, Consulta consulta) {
@@ -126,6 +126,7 @@ public class GEstSaude {
 	 * @return a primeira consulta do dia do utente
 	 */
 	public Consulta primeiraConsultaDia(Utente u) {
+		// TODO FEITO implementar este método
 		if (u.getConsultas().isEmpty()) {
 			return null;
 		}
@@ -150,34 +151,30 @@ public class GEstSaude {
 	 *         hora de atendimento já fica fora do horário
 	 */
 	public int validarConsulta(Consulta c) {
+		// TODO FEITO validar a consulta
+		// TODO FEITO emitir a senha
 		LocalDateTime agora = RelogioSimulado.getRelogioSimulado().getTempoAtual();
 		LocalDateTime dataConsulta = c.getDataHora();
 
-		//Verifica se a consulta já está validada
 		if (c.estaValidada())
 			return CONSULTA_JA_VALIDADA;
 
-		//Verifica se o utente tem consulta nas próximas 3 horas
 		if (dataConsulta.isAfter(agora.plusHours(3)))
 			return UTENTE_SEM_CONSULTA_PROXIMA;
 
-		//Verifica se o utente chegou atrasado
 		if (agora.isAfter(dataConsulta)) {
 
-			//Verifica se o utente está atrasado (mais 2 horas)
 			if (agora.isAfter(dataConsulta.plusHours(2)))
 				return UTENTE_DEMASIADO_ATRASADO;
 
-			// Verifica se a nova hora fica fora do horário (após as 20:00)
 			if (agora.toLocalTime().isAfter(LocalTime.of(20, 0)))
 				return UTENTE_ATRASADO_FORAHORAS;
-			// Emite a senha
+
 			c.setDataHora(agora.plusMinutes(45));
 			criaSenha(agora, agora.plusMinutes(45), c);
 			return UTENTE_ATRASADO_ADIADO;
 		}
 
-		//Utente a horas - emite a senha normalmente
 		criaSenha(agora, dataConsulta, c);
 		return CONSULTA_ACEITE;
 	}
@@ -193,7 +190,7 @@ public class GEstSaude {
 	 * @return a senha criada
 	 */
 	public Senha emiteSenha(Consulta c, LocalDateTime entrada, LocalDateTime atendimento) {
-		//Se a consulta está validada retorna a senha
+		// TODO FEITO implementar este método
 		if (c.estaValidada())
 			return c.getSenha();
 		return criaSenha(entrada, atendimento, c);
@@ -206,6 +203,7 @@ public class GEstSaude {
 	 * @param c a consulta terminada
 	 */
 	public void terminaConsulta(Consulta c) {
+		// TODO FEITO implementar este método
 		consultas.remove(c);
 		senhas.remove(c.getSenha());
 		c.getUtente().removeConsulta(c);
@@ -225,6 +223,7 @@ public class GEstSaude {
 	 *         consulta na mesma data
 	 */
 	public int podeAceitarConsulta(Consulta c) {
+		// TODO FEITO implementar este método
 		LocalDateTime agora = RelogioSimulado.getRelogioSimulado().getTempoAtual();
 
 		if (c.getDataHora().isBefore(agora))
@@ -262,28 +261,24 @@ public class GEstSaude {
 	 *         consulta
 	 */
 	public int podeAlterarConsulta(Consulta antiga, Consulta nova) {
+		// TODO FEITO implementar este método
 		LocalDateTime agora = RelogioSimulado.getRelogioSimulado().getTempoAtual();
 
-		//Verificar se mudou o utente ou a especialidade
 		if (!antiga.getUtente().equals(nova.getUtente()) || !antiga.getEspecialidade().equals(nova.getEspecialidade()))
 			return ALTERACAO_INVALIDA;
 
-		//Verificar se a nova data já passou
 		if (nova.getDataHora().isBefore(agora))
 			return DATA_JA_PASSOU;
 
 		for (Consulta existente : consultas) {
-			//Ignorar consulta antiga
 			if (existente == antiga) continue;
 
-			//Verificar se o utente já tem consulta com menos de 3h diff
 			if (existente.getUtente().equals(nova.getUtente())) {
 				long diff = Math.abs(Duration.between(existente.getDataHora(), nova.getDataHora()).toMinutes());
 				if (diff < 180)
 					return UTENTE_JA_TEM_CONSULTA;
 			}
 
-			//Verificar se a especialidade já tem consulta com menos de 10 minutos de diff
 			if (existente.getEspecialidade().equals(nova.getEspecialidade())){
 				long diff = Math.abs(Duration.between(existente.getDataHora(), nova.getDataHora()).toMinutes());
 				if (diff < 10)
@@ -310,10 +305,10 @@ public class GEstSaude {
 	 *         consulta
 	 */
 	public int alteraConsulta(Consulta antiga, Consulta nova) {
+		// TODO FEITO implementar este método
 		int res = podeAlterarConsulta(antiga, nova);
 		if (res != CONSULTA_ACEITE) return res;
 
-		//Substitui a antiga pela nova
 		int index = consultas.indexOf(antiga);
 		consultas.set(index, nova);
 

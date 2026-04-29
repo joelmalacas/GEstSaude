@@ -16,7 +16,7 @@ public class teste {
 
         // TODO criar os utentes
         Utente u1 = new Utente("Joel", 12345);
-        Utente u2 = new Utente("Ana", 67890);
+        Utente u2 = new Utente("Gonçalo", 67890);
 
         g.adicionaUtente(u1);
         g.adicionaUtente(u2);

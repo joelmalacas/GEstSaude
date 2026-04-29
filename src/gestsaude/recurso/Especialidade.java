@@ -15,14 +15,11 @@ import poo.util.Validator;
  */
 public class Especialidade {
 
-	//Constante inicial do ID_ESPECIALIDADE
-
 	// para simplificar, cada serviço vai ter sempre o mesmo horário
 	private HorarioDiario horario = new HorarioDiario(LocalTime.of(8, 10), LocalTime.of(19, 50));
 	private String id,nome;
-	private List<Especialidade> especialidades = new ArrayList<>();
-	private List<Consulta> consultas; //Todas as consultas marcadas
-	private List<Senha> senhas; //Senhas a atender hoje
+	private List<Consulta> consultas;
+	private List<Senha> senhas;
 	private GEstSaude gest;
 
 	public Especialidade(String id,String nome) {
@@ -39,6 +36,7 @@ public class Especialidade {
 	 * @return a próxima senha em espera
 	 */
 	public Senha getProximaSenha() {
+		// TODO FEITO implementar este método
 		if (senhas.isEmpty())
 			return null;
 		return senhas.get(0);
@@ -49,7 +47,7 @@ public class Especialidade {
 	 * tarde e passa ao próximo utente.
 	 */
 	public void rejeitaProximaSenha() {
-
+		// TODO FEITO implementar este método
 		if (!senhas.isEmpty()) {
 			Senha s = senhas.remove(0);
 			LocalDateTime NovaDataHora = s.getConsulta().getDataHora().plusMinutes(15);
@@ -72,6 +70,7 @@ public class Especialidade {
 	 * @param s a senha cuja consulta terminou
 	 */
 	public void terminaConsulta(Senha s) {
+		// TODO FEITO implementar este método
 		senhas.remove(s);
 		consultas.remove(s.getConsulta());
 	}
@@ -83,10 +82,10 @@ public class Especialidade {
 	 * @return as senhas que estão em lista de espera para serem atendidas
 	 */
 	public Collection<Senha> getEmEspera() {
+		// TODO FEITO implementar este método
 		return new ArrayList<>(senhas);
 	}
 
-	//GETTER's
 	public String getNome() { return nome; }
 	public List<Consulta> getConsultas() { return consultas; }
 	public List<Senha> getSenhas() { return senhas; }

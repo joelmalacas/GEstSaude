@@ -32,6 +32,7 @@ public class Servico {
      *         mais senhas
      */
     public Senha getProximaSenha() {
+        // TODO FEITO implementar este método
         return fila.peek();
     }
 
@@ -39,6 +40,7 @@ public class Servico {
      * o utente não responde à chamada? A sua senha passa para o fim da lista.
      */
     public void saltaProximaSenha() {
+        // TODO FEITO implementar este método
         if (!fila.isEmpty()) {
             Senha s = fila.poll();
             fila.add(s);
@@ -51,6 +53,7 @@ public class Servico {
      * @param s a senha que terminou o serviço
      */
     public void terminaConsulta(Senha s) {
+        // TODO FEITO implementar este método
         if (fila.remove(s))
             s.terminaAtendimento();
     }
@@ -62,10 +65,10 @@ public class Servico {
      * @return as senhas que estão em lista de espera para serem atendidas
      */
     public Collection<Senha> getEmEspera() {
+        // TODO FEITO implementar este método
         return Collections.unmodifiableCollection(fila);
     }
 
-    /*Método para adicionar senha*/
     public void adicionaSenha(Senha s) {
         fila.add(s);
     }

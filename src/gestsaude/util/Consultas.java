@@ -25,6 +25,7 @@ public class Consultas {
 	 */
 
 	public static List<Consulta> getConsultaEntreDatas(Collection<Consulta> cs, LocalDateTime ini, LocalDateTime fim) {
+		// TODO FEITO implementar este método
 		List<Consulta> res = new ArrayList<>();
 
 		for (Consulta c : cs) {
@@ -44,10 +45,11 @@ public class Consultas {
 	 * @return uma lista com as consultas marcadas para dia
 	 */
 	public static List<Consulta> getConsultasDoDia(Collection<Consulta> cs, LocalDate dia) {
+		// TODO FEITO implementar este método
 		List<Consulta> res = new ArrayList<>();
 
 		for (Consulta c : cs) {
-			LocalDate data = c.getDataHora().toLocalDate(); //Fica só a data
+			LocalDate data = c.getDataHora().toLocalDate();
 
 			if (data.equals(dia))
 				res.add(c);
@@ -63,18 +65,17 @@ public class Consultas {
 	 * @return uma lista com as consultas após a data t
 	 */
 	public static List<Consulta> getConsultasApos(List<Consulta> cs, LocalDateTime t) {
+		// TODO FEITO implementar este método
 		List<Consulta> res = new ArrayList<>();
 
 		for (Consulta c : cs) {
-			if (!c.getDataHora().isBefore(t)) //Igual ou depois a "t"
+			if (!c.getDataHora().isBefore(t))
 				res.add(c);
 		}
 		return Collections.unmodifiableList(res);
 	}
 
-	/*
-	* Método que verifica intervalo de 10 minutos na mesma especialidade
-	*/
+
 	public static boolean Verifica10Especialidade(Collection<Consulta> cs, Consulta nova) {
 		for (Consulta c : cs) {
 			if (c == nova) continue;
@@ -88,22 +89,15 @@ public class Consultas {
 		return false;
 	}
 
-	/*
-	 * Método que verifica que o utente não pode ter mais
-	 *    que 1 consulta em menos de 3 horas
-	 */
+
 	public static boolean Verifica3HorasUtente(Collection<Consulta> cs, Consulta nova) {
 		for (Consulta c : cs) {
-			//Verifica se as duas referências apontam para o mesmo objeto
 			if (c == nova) continue;
 
-			//Mesmo Utente
 			if (!c.getUtente().equals(nova.getUtente())) continue;
 
-			//Verifica se é o mesmo dia
 			if (!c.getDataHora().toLocalDate().equals(nova.getDataHora().toLocalDate())) continue;
 
-			//Calcular o intervalo de tempo (horas) entre as duas datas
 			long horas = Math.abs(Duration.between(c.getDataHora(), nova.getDataHora()).toHours());
 
 			if (horas < 3)

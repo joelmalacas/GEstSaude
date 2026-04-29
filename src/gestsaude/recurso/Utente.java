@@ -29,7 +29,6 @@ public class Utente {
         this.consultas.remove(c);
     }
 
-    //GETTER's
     public String getNome() { return nome; }
     public int getSns() { return sns; }
     public List<Consulta> getConsultas() { return Collections.unmodifiableList(consultas); }

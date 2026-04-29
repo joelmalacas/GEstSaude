@@ -26,7 +26,7 @@ import poo.util.RelogioSimulado;
 public class Arranque {
 	/**
 	 * Cria a configuração inicial do sistema
-	 * 
+	 *
 	 * @return um GEstSaude já completamente configurado
 	 */
 	public static GEstSaude getGEstSaude() {
