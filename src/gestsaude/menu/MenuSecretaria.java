@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import gestsaude.recurso.*;
+import gestsaude.util.Consultas;
 import poo.util.RelogioSimulado;
 
 /**
@@ -68,7 +69,7 @@ public class MenuSecretaria extends JFrame {
 	/** lista todas as consultas */
 	private void listarTodas() {
 		// TODO FEITO colocar a lista de todas as consultas
-		listarConsultas(gest.getConsultas());
+		listarConsultas(Consultas.getConsultaEntreDatas(gest.getConsultas(), LocalDateTime.MIN, LocalDateTime.MAX));
 		listagem = LISTAR_TODAS;
 	}
 
@@ -76,12 +77,7 @@ public class MenuSecretaria extends JFrame {
 	private void listarHoje() {
 		LocalDateTime agora = RelogioSimulado.getRelogioSimulado().tempoAtual();
 		// TODO FEITO listar as consulta do dia de hoje
-		List <Consulta> consultasHoje = new ArrayList<>();
-		for (Consulta c : gest.getConsultas()) {
-			if (c.getDataHora().toLocalDate().equals(agora.toLocalDate()))
-				consultasHoje.add(c);
-		}
-		listarConsultas(consultasHoje);
+		listarConsultas(Consultas.getConsultasDoDia(gest.getConsultas(), agora.toLocalDate()));
 		listagem = LISTAR_HOJE;
 	}
 

@@ -98,9 +98,9 @@ public class Consultas {
 
 			if (!c.getDataHora().toLocalDate().equals(nova.getDataHora().toLocalDate())) continue;
 
-			long horas = Math.abs(Duration.between(c.getDataHora(), nova.getDataHora()).toHours());
+			long horas = Math.abs(Duration.between(c.getDataHora(), nova.getDataHora()).toMinutes());
 
-			if (horas < 3)
+			if (horas < 180)
 				return true;
 		}
 
