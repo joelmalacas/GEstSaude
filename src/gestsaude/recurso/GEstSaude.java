@@ -3,6 +3,7 @@ package gestsaude.recurso;
 import gestsaude.util.Consultas;
 import poo.util.RelogioSimulado;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
@@ -229,29 +230,11 @@ public class GEstSaude {
 		if (c.getDataHora().isBefore(agora))
 			return DATA_JA_PASSOU;
 
-		for (Consulta cs : consultas) {
-			/*if (cs.getUtente().equals(c.getUtente())) {
-				long DiffMinutos = Math.abs(Duration.between(cs.getDataHora(), c.getDataHora()).toMinutes());
-				if (DiffMinutos < 180)
-					return UTENTE_JA_TEM_CONSULTA;
-			}*/
+		if (Consultas.Verifica10Especialidade(consultas, c))
+			return ESPECIALISTA_JA_TEM_CONSULTA;
 
-			if (Consultas.Verifica3HorasUtente(consultas, cs)) {
-				return UTENTE_JA_TEM_CONSULTA;
-			}
-
-			if (Consultas.Verifica10Especialidade(consultas, cs)) {
-				return ESPECIALISTA_JA_TEM_CONSULTA;
-			}
-
-			/*
-				if (cs.getEspecialidade().equals(c.getEspecialidade())){
-					long DiffMinutos = Math.abs(Duration.between(cs.getDataHora(), c.getDataHora()).toMinutes());
-					if (DiffMinutos < 10)
-						return ESPECIALISTA_JA_TEM_CONSULTA;
-				}
-			*/
-		}
+		if (Consultas.Verifica3HorasUtente(consultas, c))
+			return UTENTE_JA_TEM_CONSULTA;
 
 		return CONSULTA_ACEITE;
 	}
@@ -283,14 +266,6 @@ public class GEstSaude {
 		for (Consulta existente : consultas) {
 			if (existente == antiga) continue;
 
-			/*
-				if (existente.getUtente().equals(nova.getUtente())) {
-					long diff = Math.abs(Duration.between(existente.getDataHora(), nova.getDataHora()).toMinutes());
-					if (diff < 180)
-						return UTENTE_JA_TEM_CONSULTA;
-				}
-			*/
-
 			if (Consultas.Verifica3HorasUtente(consultas, nova)) {
 				return UTENTE_JA_TEM_CONSULTA;
 			}
@@ -298,14 +273,6 @@ public class GEstSaude {
 			if (Consultas.Verifica10Especialidade(consultas, nova)) {
 				return ESPECIALISTA_JA_TEM_CONSULTA;
 			}
-
-			/*
-				if (existente.getEspecialidade().equals(nova.getEspecialidade())){
-					long diff = Math.abs(Duration.between(existente.getDataHora(), nova.getDataHora()).toMinutes());
-					if (diff < 10)
-						return ESPECIALISTA_JA_TEM_CONSULTA;
-				}
-			*/
 		}
 
 		return CONSULTA_ACEITE;

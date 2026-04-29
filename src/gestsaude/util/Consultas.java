@@ -77,31 +77,26 @@ public class Consultas {
 
 
 	public static boolean Verifica10Especialidade(Collection<Consulta> cs, Consulta nova) {
-		for (Consulta c : cs) {
-			if (c == nova) continue;
-			if (!c.getEspecialidade().equals(nova.getEspecialidade())) continue;
-			long minutos = Math.abs(Duration.between(c.getDataHora(), nova.getDataHora()).toMinutes());
+		for (Consulta consultas : cs) {
 
-			if (minutos < 10)
-				return true;
+			if (consultas.getEspecialidade().equals(nova.getEspecialidade())){
+				long DiffMinutos = Math.abs(Duration.between(consultas.getDataHora(), nova.getDataHora()).toMinutes());
+				if (DiffMinutos < 10)
+					return true;
+			}
 		}
 
 		return false;
 	}
 
-
 	public static boolean Verifica3HorasUtente(Collection<Consulta> cs, Consulta nova) {
-		for (Consulta c : cs) {
-			if (c == nova) continue;
+		for (Consulta consultas : cs) {
+			if (consultas.getUtente().equals(nova.getUtente())) {
+				long DiffMinutos = Math.abs(Duration.between(consultas.getDataHora(), nova.getDataHora()).toMinutes());
+				if (DiffMinutos < 180)
+					return true;
+			}
 
-			if (!c.getUtente().equals(nova.getUtente())) continue;
-
-			if (!c.getDataHora().toLocalDate().equals(nova.getDataHora().toLocalDate())) continue;
-
-			long horas = Math.abs(Duration.between(c.getDataHora(), nova.getDataHora()).toMinutes());
-
-			if (horas < 180)
-				return true;
 		}
 
 		return false;
